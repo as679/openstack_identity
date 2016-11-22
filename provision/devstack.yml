@@ -1,8 +1,5 @@
 - hosts: devstack
   become: yes
 
-  vars_files:
-  - vars/customise.yml
-
   roles:
     - devstack

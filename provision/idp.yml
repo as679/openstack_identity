@@ -1,0 +1,21 @@
+---
+- name: Install Python
+  hosts: idp
+  gather_facts: false
+  become: yes
+  tasks:
+  - raw: apt-get install -y {{ item }}
+    with_items:
+    - python
+    - python-apt
+
+- name: Prepare shibboleth server
+  hosts: idp
+  become: yes
+
+  vars_files:
+  - vars/idp.yml
+
+  roles:
+    - jetty
+    - shibboleth

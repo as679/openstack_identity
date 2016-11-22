@@ -17,9 +17,6 @@ Vagrant.configure("2") do |config|
     vb.memory = "4096"
     vb.cpus = "2"
   end
-  config.vm.provision :ansible do |ansible|
-    ansible.playbook = "./provision/site.yml"
-  end
   config.vm.define "ldap" do |ldap|
     ldap.vm.hostname = "ldap"
     ldap.vm.network "private_network", ip: ip['ldap'] 
@@ -28,4 +25,13 @@ Vagrant.configure("2") do |config|
     devstack.vm.hostname = "devstack"
     devstack.vm.network "private_network", ip: ip['devstack'] 
   end
+  config.vm.define "idp" do |idp|  
+    idp.vm.box = "ubuntu/xenial64"
+    idp.vm.hostname = "idp"
+    idp.vm.network "private_network", ip: ip['idp'] 
+  end
+  config.vm.provision :ansible do |ansible|
+    ansible.playbook = "./provision/site.yml"
+  end
 end
+
